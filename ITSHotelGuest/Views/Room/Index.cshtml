@@ -1,0 +1,404 @@
+﻿@model ITSHotelGuest.Models.RoomData
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="room">
+    <div class="container-grid-title">
+        <div class="g1" style="display: grid;">
+            <div style="text-align: center; font-size: 4em;align-self: start;" name=currTemp id="temp">
+                @Model.Temperature°C
+            </div>
+            <div style="align-self: center;text-align: center;font-size: 1em;">
+                <span id="alarm">@Model.AlarmTime.ToShortTimeString()</span>
+                <p name="wantTemp" id="conditTemp">@Model.ConditionerTemperature,00°C</p>
+            </div>
+
+        </div>
+        <div id="divTitle" class="g2">
+            Room: <h2>@Model.RoomNumber</h2>
+        </div>
+    </div>
+
+    <div class="container-grid">
+        <div class="divContent g1 lnkTemperature">
+            <div class="col-md-12">
+                <p>
+                    <i class="fas fa-thermometer" style="font-size: 7em;"></i>
+                </p>
+                <label asp-for="Temperature" style="text-align: center;"></label>
+            </div>
+        </div>
+
+        <div class="divContent g2 lnkAlarm">
+            <div class="col-md-12" style="height: 100%;display: grid;">
+                <p style="align-self: end; text-align: center;">
+                    <i class="far fa-clock" style="font-size: 7em;"></i>
+                </p>
+                <label asp-for="AlarmTime" style="text-align: center;"></label>
+                <input type="hidden" name=ToggleA id="hfAlarm" asp-for="AlarmSet" />
+            </div>
+
+        </div>
+
+        <div class="divContent g3 lnkPower">
+            <div class="col-md-12" style="height: 100%;display: grid;">
+                <p style="align-self: end;text-align: center;">
+                    <i id="Lamp" class="far fa-lightbulb"></i>
+                </p>
+                <label asp-for="Light" style="text-align: center;"></label>
+                <input type="hidden" name=Light id="hfLight" asp-for="Light"/>
+            </div>
+        </div>
+
+        <div class="divContent g4 lnkCode">
+            <div class="col-md-12" style="height: 100%;display: grid;">
+                <p style="align-self: end;text-align: center;">
+                    <i class="fas fa-sign-in-alt" style="font-size: 7em;"></i>
+                </p>
+                <label asp-for="PassCode" style="text-align: center;"></label>
+            </div>
+        </div>
+
+        <div class="divContent g5 lnkCondit">
+            <div class="col-md-12" style="height: 100%;display: grid;">
+                <p style="align-self: end;text-align: center;">
+                    <i id="Condiz" class="fas fa-snowflake"></i>
+                </p>
+                <label asp-for="ConditionerSet" style="text-align: center;"></label>
+                <input type="hidden" name=Condit id="hfCondit" asp-for="ConditionerSet" />
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+@*MODAL TEMPERATURA*@
+<div class="modal fade" id="DialogTemperature" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Set Temperature</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <input asp-for="ConditionerTemperature" name=Temperature class="col-xs-4 float-right text-right form-control" step="0.1" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="setTemperature()" data-dismiss="modal" max="40">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*MODAL SVEGLIA*@
+<div class="modal fade" id="DialogSveglia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Set Sveglia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <input asp-for="AlarmTime" id="tbxTime" name="AlarmTime" class="col-xs-4 float-right text-right form-control" value="00:00" type="time"/>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Close</button>
+                <button id="CNG" type="button" class="btn btn-sm btn-outline-info" value="False" onclick="toggleAlarm()">Toggle</button>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="setAlarm()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*MODAL CODE*@
+<div class="modal fade" id="DialogCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Set Door Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <input asp-for="PassCode" name="Code" class="col-xs-4 float-right text-right form-control" maxlength="4" min="0000"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-outline-success" onclick="setCode()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        var colorLight = function (light) {
+            if (light === true) {
+                $('.fa-lightbulb').addClass("lightOn");
+            }
+            else {
+                $('.fa-lightbulb').removeClass("lightOn");
+            }
+        }
+
+        var colorCondit = function (condit) {
+            if (condit == true) {
+                $('.fa-snowflake').addClass("conditOn");
+            }
+            else {
+                $('.fa-snowflake').removeClass("conditOn");
+            }
+        }
+
+        var colorAlarm = function (toggleA) {
+            if (toggleA == false) {
+                $("#CNG").removeClass('btn btn-sm btn-outline-info');
+                $("#CNG").addClass('btn btn-sm btn-outline-dark');
+            }
+            else {
+                $("#CNG").removeClass('btn btn-sm btn-outline-dark');
+                $("#CNG").addClass('btn btn-sm btn-outline-info');
+            }
+        }
+        var colorTemp = function (temperature) {
+            if (temperature < 10) {
+                $('.fa-thermometer').addClass("tempMin");
+                $('.fa-thermometer').removeClass("tempMax");
+            }
+            else if (temperature > 10 && temperature < 20) {
+                $('.fa-thermometer').removeClass("tempMin");
+                $('.fa-thermometer').removeClass("tempMax");
+            }
+            else {
+                $('.fa-thermometer').addClass("tempMax");
+                $('.fa-thermometer').removeClass("tempMin");
+            }
+        }
+//--------------------------------------------------------------------------------------------------------------
+        $(function () {
+
+            $('.lnkPower').click(() => {
+                setPower();
+            });
+            $('.lnkCondit').click(() => {
+                setCondit();
+            });
+            $('.lnkAlarm').click(() => {
+                $('#DialogSveglia').modal('show');
+            });
+            $('.lnkTemperature').click(() => {
+                $('#DialogTemperature').modal('show');
+            });
+            $('.lnkCode').click(() => {
+                $('#DialogCode').modal('show');
+            });
+        })
+//--------------------------------------------------------------------------------------------------------------
+        setInterval(() => {
+
+            var currentTempUrl = '@Url.Action("CurrentTemp", new { deviceId = Model.RoomNumber })';
+
+            $.getJSON(currentTempUrl, function (response) {
+                $("#temp").html(response.temp +"°C");
+                colorTemp(response.temp);
+
+            });
+
+        }, 1000);
+
+        setInterval(() => {
+
+            var currentStatusUrl = '@Url.Action("Status", new { deviceId = Model.RoomNumber })';
+
+            $.getJSON(currentStatusUrl, function (response) {
+                colorAlarm(response.toggleA);
+                colorCondit(response.condit);
+                colorLight(response.light);
+            });
+        }, 1000);
+
+        setInterval(() => {
+
+            var currentAlarmUrl = '@Url.Action("CurrentAlarm", new { deviceId = Model.RoomNumber})';
+
+            $.getJSON(currentAlarmUrl, function (response) {
+                $('#alarm').html(response.alarmTime);
+            });
+        }, 1000);
+//-------------------------------------------------------------------------------------------------
+        var setPower = function () {
+
+            var light = $("[name=Light]").val();
+
+            if (light == "True")
+            {
+                $('#hfLight').val("False");
+                light = false;
+            }
+            else {
+                $('#hfLight').val("True")
+                light = true;
+            }
+
+            var url = '@Url.Action("ToggleLight", new { deviceId = Model.RoomNumber})';
+
+            var request = { light: light };
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(request)
+            })
+                .done()
+                .fail();
+            //colorLight(light);
+        };
+//--------------------------------------------------------------------------------------------------------------
+        var setCondit = function () {
+
+            var condit = $("[name=Condit]").val();
+
+            if (condit == "True") {
+                    $('#hfCondit').val("False");
+                    condit = false;
+                }
+            else {
+                    $('#hfCondit').val("True")
+                    condit = true;
+            }
+
+            var url = '@Url.Action("ToggleCondit", new { deviceId = Model.RoomNumber})';
+
+            var request = { condit: condit };
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(request)
+            })
+                .done()
+                .fail();
+            //colorCondit(condit);
+        };
+//--------------------------------------------------------------------------------------------------------------
+        var toggleAlarm = function () {
+
+            var toggleA = $("[name=ToggleA]").val();
+
+            if (toggleA == "True") {
+                $('#hfAlarm').val("False");
+                toggleA = false;
+            }
+            else {
+                $('#hfAlarm').val("True");
+                toggleA = true;
+            }
+
+            var url = '@Url.Action("ToggleAlarm", new { deviceId = Model.RoomNumber })';
+
+            var request = {
+                toggleA : toggleA
+            };
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(request)
+            })
+                .done()
+                .fail();
+            //colorAlarm(toggleA);
+        };
+//--------------------------------------------------------------------------------------------------------------
+        var setAlarm = function () {
+            var alarm = $("[name=AlarmTime]").val();
+
+            var url = '@Url.Action("SetAlarm", new { deviceId = Model.RoomNumber })';
+
+            var request = {
+                alarm: alarm
+            };
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(request)
+            })
+                .done(() => { 
+                    $('#DialogSveglia').modal('hide');
+                })
+                .fail();
+        };
+//--------------------------------------------------------------------------------------------------------------
+        var setTemperature = function () {
+             var temperature = $("[name=Temperature]").val();
+
+             var url = '@Url.Action("SetTemperature", new { deviceId = Model.RoomNumber })';
+             var request = {
+                temperature: temperature
+            };
+
+            $('#conditTemp').html(temperature + "°C");
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(request)
+            })
+                .done(() => {
+                    $('#DialogTemperature').modal('hide');
+                })
+                .fail();
+        };
+//--------------------------------------------------------------------------------------------------------------
+        var setCode = function () {
+             var code = $("[name=Code]").val();
+
+                var url = '@Url.Action("SetCode", new { deviceId = Model.RoomNumber })';
+
+                var request = {
+                code :code 
+            };
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(request)
+            })
+                .done(() => {
+                    $('#DialogCode').modal('hide');
+                })
+                .fail();
+        };
+    </script>
+}
+

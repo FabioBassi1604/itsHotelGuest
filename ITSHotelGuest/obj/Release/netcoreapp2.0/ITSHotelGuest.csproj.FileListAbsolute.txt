@@ -1,0 +1,14 @@
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\wwwroot\images\img1.jpg
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\wwwroot\images\img2.jpg
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\wwwroot\images\img3.jpg
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\ITSHotelGuest.deps.json
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\ITSHotelGuest.runtimeconfig.json
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\ITSHotelGuest.runtimeconfig.dev.json
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\ITSHotelGuest.dll
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\bin\Release\netcoreapp2.0\ITSHotelGuest.pdb
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\obj\Release\netcoreapp2.0\ITSHotelGuest.csprojAssemblyReference.cache
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\obj\Release\netcoreapp2.0\ITSHotelGuest.csproj.CoreCompileInputs.cache
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\obj\Release\netcoreapp2.0\ITSHotelGuest.AssemblyInfoInputs.cache
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\obj\Release\netcoreapp2.0\ITSHotelGuest.AssemblyInfo.cs
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\obj\Release\netcoreapp2.0\ITSHotelGuest.dll
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\obj\Release\netcoreapp2.0\ITSHotelGuest.pdb

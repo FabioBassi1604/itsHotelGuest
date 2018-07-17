@@ -1,0 +1,12 @@
+C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest
+--output-path=obj\Release\netcoreapp2.0\
+--application-name=ITSHotelGuest
+--content-root=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\Home\Index.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\Room\Control.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\Room\Index.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\Shared\Error.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\Shared\_Layout.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\Shared\_ValidationScriptsPartial.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\_ViewImports.cshtml
+--file=C:\Users\LOLma\Desktop\GUESTbeta\ITSHotelGuest\Views\_ViewStart.cshtml
